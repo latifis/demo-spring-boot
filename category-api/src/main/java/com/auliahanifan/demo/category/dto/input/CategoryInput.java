@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Data
 @Builder
@@ -15,5 +17,7 @@ import javax.validation.constraints.NotBlank;
 public class CategoryInput {
 
   @NotBlank(message = "Name is mandatory")
+  @Size(min=2, max=30, message = "Name Minimal 2, Max 30")
+  @Pattern(regexp = "\"([a-zA-Z]{2,30}\\s*)+\"\n", message = "Name Only Alphabet")
   private String name;
 }
