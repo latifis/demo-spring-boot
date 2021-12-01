@@ -6,10 +6,14 @@ import com.auliahanifan.demo.category.model.Category;
 import com.auliahanifan.demo.category.repository.CategoryRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.collections4.IterableUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -34,8 +38,13 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public Iterable<Category> getAllCategories() {
-    return categoryRepository.findAll();
+  public List<CategoryOutput> getAllCategories(Pageable pageable) {
+    List<Category> categoryList = IterableUtils.toList(categoryRepository.findAll(pageable));
+    List<CategoryOutput> outputList = new ArrayList<>();
+    for (Category category: categoryList) {
+      outputList.add(modelMapper.map(category, CategoryOutput.class));
+    }
+    return outputList;
   }
 
   @Override
@@ -51,7 +60,12 @@ public class CategoryServiceImpl implements CategoryService {
   }
 
   @Override
-  public void deleteAllCategories() {
-    categoryRepository.deleteAll();
+  public List<CategoryOutput> getAllCategoriesByName(String name, Pageable pageable) {
+    List<Category> categoryList = IterableUtils.toList(categoryRepository.findAllByNameContains(name, pageable));
+    List<CategoryOutput> outputList = new ArrayList<>();
+    for (Category category: categoryList) {
+      outputList.add(modelMapper.map(category, CategoryOutput.class));
+    }
+    return outputList;
   }
 }

@@ -7,6 +7,8 @@ import com.auliahanifan.demo.category.model.Category;
 import com.auliahanifan.demo.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -19,10 +21,12 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import javax.validation.Valid;
 
 @RestController
@@ -44,8 +48,20 @@ public class CategoryController {
   }
 
   @GetMapping
-  public ResponseEntity<BaseResponse<Iterable<Category>>> getAllCategories() {
-    return ResponseEntity.ok(new BaseResponse<>(categoryService.getAllCategories()));
+  public ResponseEntity<BaseResponse<List<CategoryOutput>>> getAllCategories(@RequestParam(required = false) Integer size,
+                                                                       @RequestParam(required = false) Integer page,
+                                                                       @RequestParam(required = false) String name) {
+    Integer pagePageable = page == null ? 0 : page;
+    Integer sizePageable = size == null ? 10 : size;
+    if (sizePageable > 50) {
+      sizePageable = 50;
+    }
+
+    Pageable pageable = PageRequest.of(pagePageable, sizePageable);
+    if (name == null) {
+      return ResponseEntity.ok(new BaseResponse<>(categoryService.getAllCategories(pageable)));
+    }
+    return ResponseEntity.ok(new BaseResponse<>(categoryService.getAllCategoriesByName(name, pageable)));
   }
 
   @PostMapping
@@ -56,12 +72,6 @@ public class CategoryController {
   @DeleteMapping("/{id}")
   public ResponseEntity<BaseResponse<?>> deleteCategory(@PathVariable Long id) {
     categoryService.deleteCategory(id);
-    return ResponseEntity.ok(new BaseResponse<>(null));
-  }
-
-  @DeleteMapping
-  public ResponseEntity<BaseResponse<?>> deleteAllCategories() {
-    categoryService.deleteAllCategories();
     return ResponseEntity.ok(new BaseResponse<>(null));
   }
 
