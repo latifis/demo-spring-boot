@@ -1,4 +1,4 @@
-package com.auliahanifan.demo.category.dto.output;
+package com.auliahanifan.demo.product.dto.input;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
-public class CategoryOutput {
-  private long id;
+public class ProductInput {
   private String name;
-
+  private Long category;
+  private Double price;
 }

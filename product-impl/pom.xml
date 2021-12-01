@@ -9,31 +9,25 @@
   </parent>
   <modelVersion>4.0.0</modelVersion>
 
-  <artifactId>category-api</artifactId>
+  <artifactId>product-impl</artifactId>
 
   <properties>
     <maven.compiler.source>11</maven.compiler.source>
     <maven.compiler.target>11</maven.compiler.target>
   </properties>
 
+
   <dependencies>
-
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-jpa</artifactId>
+      <artifactId>spring-boot-starter-web</artifactId>
     </dependency>
 
     <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-validation</artifactId>
+      <groupId>org.modelmapper</groupId>
+      <artifactId>modelmapper</artifactId>
+      <version>${modelmapper.version}</version>
     </dependency>
-
-    <dependency>
-      <groupId>com.auliahanifan</groupId>
-      <artifactId>common-api</artifactId>
-      <version>${project.version}</version>
-    </dependency>
-
 
     <dependency>
       <groupId>com.auliahanifan</groupId>
@@ -42,5 +36,4 @@
     </dependency>
 
   </dependencies>
-
 </project>

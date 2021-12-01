@@ -3,7 +3,6 @@ package com.auliahanifan.demo.category.controller;
 import com.auliahanifan.common.dto.BaseResponse;
 import com.auliahanifan.demo.category.dto.input.CategoryInput;
 import com.auliahanifan.demo.category.dto.output.CategoryOutput;
-import com.auliahanifan.demo.category.model.Category;
 import com.auliahanifan.demo.category.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

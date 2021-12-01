@@ -10,6 +10,8 @@
 		<module>demo-app</module>
 		<module>category-impl</module>
 		<module>common-api</module>
+		<module>product-api</module>
+		<module>product-impl</module>
 	</modules>
 
 	<parent>

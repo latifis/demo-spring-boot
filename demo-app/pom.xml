@@ -47,7 +47,15 @@
       <artifactId>category-impl</artifactId>
       <version>${project.version}</version>
     </dependency>
+
+    <dependency>
+      <groupId>com.auliahanifan</groupId>
+      <artifactId>product-impl</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+
   </dependencies>
+
 
 
   <build>
